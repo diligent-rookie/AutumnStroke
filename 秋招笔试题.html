@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+/*
+美团秋招笔试题
+参数1是有几种题型，参数二是一个数组：偶数索引值代表此题型所需时间，
+奇数索引值代表此题型所得分数，答题时间最多不得超过120分钟，求能得到的最多分数
+function add(n,...arguments){
+var max=0;
+var arr=[];
+console.log(arguments)
+for(var i=0;i<arguments.length-1;i++) {
+for(var j=i+1;j<arguments.length;j++) {
+if(i%2===0&&j%2===0){
+arguments[i]+arguments[j]<121?
+arr.push(arguments[i+1]+arguments[j+1]):'' 
+}
+} 
+}
+return arr.sort(function(a,b){return b-a})[0]
+}
+console.log(add(4,20,20,100,60,50,30,80,55,100,60,110,88,5,3,10,6))
+*/
+
+/*
+迅雷笔试第一道题：原生实现on once 自定义事件emit
+;(function (window, undefined) {
+	'use strict';
+	//构造函数
+	var EventEmitter = function() {
+		this.events = {};//保存事务，存储结构为{'eventName1':[{listener:function触发的函数, time:触发的次数}], 'eventName2':[],}
+	};
+	
+	EventEmitter.prototype.once = function(evt, listener) {
+		 return this.addListener(evt, listener, 0);
+	};
+//获取所有的事务
+	EventEmitter.prototype.getEvents = function() {
+		return this.events || (this.events = {});
+	}
+//获取某个实践的所有触发函数
+	EventEmitter.prototype.getListeners = function(evt) {
+		 var events = this.getEvents();
+		 return events[evt] || (events[evt] = []);
+	};
+	//注册实践触发函数  evet:事件名称   listener:事件监听函数   time:可选，选择可以触发的次数，-1表示无数次，默认为-1
+	EventEmitter.prototype.on = function(evt, listener, time) {
+		time = typeof(time) == 'number' ? time : -1;
+		time = time >= -1 ? time : -1; 
+		var listeners = this.getListeners(evt);
+		var listenerWrapper = {
+			listener:listener,
+			time:time,
+		};
+		listeners.push(listenerWrapper);
+		
+        return this;
+	};
+	//addListener 和on 同义
+	EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+	//移除事件的所有监听函数
+	EventEmitter.prototype.off = function(evt) {
+		var events = this.getEvents();
+		events[evt] = [];
+	};
+	EventEmitter.prototype.removeEvent = EventEmitter.prototype.off;
+	
+	//会删除同一事件中的所有listener
+	EventEmitter.prototype.removeListener = function(evt, listener) {
+		var listeners = this.getListeners(evt);
+		for(var i=0; i<listeners.length; i++) {
+			if(listeners[i].listener == listener) {
+				delete listeners[i];
+			}
+		}
+	};
+	//触发事件
+	EventEmitter.prototype.trigger = function(evt, args) {
+		var listeners = this.getListeners(evt);
+		for(var i=0; i<listeners.length; i++){
+			var listener = listeners[i];
+			if(listener.time != -1) {
+				listener.time--;
+			}
+			if (listener.time == 0) {
+				this.removeListener(evt, listener.listener);//可以同步或异步执行
+			}
+			listener.listener.apply(this, args || []);
+		}
+	};
+	EventEmitter.prototype.fire = EventEmitter.prototype.trigger;
+	//触发事件
+	EventEmitter.prototype.emit = function(evt) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return this.trigger(evt, args);
+    };
+	
+	EventEmitter.inherit = function(target) {
+		
+		if(typeof(target.prototype) == 'undefined') {
+			throw 'target:' + target + 'must have prototype';
+		}
+		var souPto = EventEmitter.prototype;
+		var tarPto = target.prototype;
+		for(var key in souPto) {
+			tarPto[key] = souPto[key];
+		}
+		return target;
+	};
+	
+	window.EventEmitter = EventEmitter;
+	
+})(window);
+*/
+
+/*
+迅雷笔试第二道题
+先以分数进行排序，分数相同以班级排序，班级相同以原始数据排序
+  var students=[
+    {"name":"王五","class":3,"score":80},
+    {"name":"赵六","class":4,"score":94},
+    {"name":"张三","class":2,"score":64},
+    {"name":"李四","class":1,"score":80},
+    {"name":"小红","class":1,"score":80},
+    {"name":"小李","class":1,"score":80}
+    ]
+  function sortStudents(students) {
+   //方法一
+  // for(var i=0;i<students.length-1;i++){
+  //   for(var j=i+1;j<students.length;j++){
+  //     if(students[j].score< students[i].score){
+  //       var t={};
+  //       t= students[j];
+  //       students[j]= students[i];
+  //       students[i]=t;
+  //     }else if(students[j].score===students[i].score&&students[j].class<students[i].class){
+  //       var n={};
+  //       n= students[j];
+  //       students[j]= students[i];
+  //       students[i]=n;
+  //     }
+  //   }
+  // }
+  // return students
+  return students.sort(function(a,b){
+    return a.score===b.score?a.class-b.class:a.score-b.score;
+  })
+  }
+  console.log(sortStudents(students));
+
+*/
+
+/*
+网易秋招笔试题：
+该同学可以一次迈1或2或3或4或5个台阶 问有n个台阶该同学至少迈多少次
+var a=0;
+var b=0;
+function walk(x){
+if(x>5||x===5){
+a+=Math.floor(x/5);
+b=x%5;
+}else if(x>4||x===4){
+a+=Math.floor(x/4);
+b=x%4;
+}else if(x>3||x===3){
+a+=Math.floor(x/3);
+b=x%3;
+}else if(x>2||x===2){
+a+=Math.floor(x/2);
+b=x%2;
+}else if(x>1||x===1){
+a+=Math.floor(x/1);
+b=x%1;
+}
+console.log(a);
+return b&&walk(b);
+}
+walk(10);
+*/
+</script>
+</body>
+</html>
