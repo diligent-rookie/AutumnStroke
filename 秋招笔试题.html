@@ -183,6 +183,127 @@ return b&&walk(b);
 }
 walk(10);
 */
+/*
+用友笔试：通过率百分之67
+-webkit-background-image -> -webkit-backgroundImage
+background-image -> backgroundImage
+
+function change(property){
+var re = /-(\w)/g;
+if(property.indexOf('-webkit-') !== -1) {
+property = property.substr(8);
+}
+var property = property.replace(re, function ($0,$1) {
+return $1.toUpperCase();
+});
+return property;
+}
+
+var property = read_line();
+print(change(property));
+*/
+/*
+搜狐笔试第一道题
+寻找兄弟节点：如'ba','ab'/'aa','aa'/'aaaaabc','aaaaacb'这样交换两个元素的字符串为兄弟节点
+像'ab','ab'则不是兄弟节点
+
+function brother(str1,str2){
+    var count=0;
+    var n=1;
+    for(var i=0;i<str1.length;i++){
+        if(str1[0]!==str1[i]||str1[0]!==str2[i]){n=0};
+        if(str2.indexOf(str1[i])!==-1){
+            str2[i]!==str1[i]?count++:'';
+        }else{
+            return 0
+        }
+    }
+    return count===2||n===1?1:0;
+}
+console.log(brother('ba','ab'));//1
+console.log(brother('ab','ab'));//0
+console.log(brother('aa','aa'));//1
+console.log(brother('aaaaabc','aaaaacb'));//1
+*/
+
+/*
+搜狐笔试第三道题：比较版本号如下：'1.0','1'->0 '1.0.1','1'->1 '1.0.2','1.0.2.1'->-1
+function addLength(start,end){
+    for(var j=start.length;j<end.length;j++){
+        start.push(0);
+    }   
+}
+function compareVersions(v1,v2){
+    var arr1=[];
+    var arr2=[];
+    var len=0;
+    v1.indexOf('.')!==-1? arr1=v1.split('.'):arr1.push(parseFloat(v1));
+    v2.indexOf('.')!==-1? arr2=v2.split('.'):arr2.push(parseFloat(v2));
+    arr1.length>arr2.length? addLength(arr2,arr1): addLength(arr1,arr2);
+    for(var i=0;i<arr1.length;i++){
+        if(arr1[i]>arr2[i]){
+            return 1;
+        }else if(arr1[i]<arr2[i]){
+            return -1;
+        }
+    }
+    return 0;
+}
+console.log(compareVersions('1.0','1'))//0
+console.log(compareVersions('1.0.1','1'))//1
+console.log(compareVersions('1.0.2','1.0.2.1'))//-1
+*/
+/*
+爱奇艺笔试第一道题：将一个六位的字符串进行修改，使之前三位和后三位之和相等，问至少操作几次？
+如：000018->把前三位的任意数字改成9即可 所以至少一次就可以了
+如：000000->不用修改 所以至少0次就可以了
+
+function changeNumber(numstr){
+    if(numstr.length>6) return '请输入正确格式';
+    var arr=numstr.split('');
+    var count=0;
+    var difference_value=0,sum1=0,sum2=0;
+   for(var i=0;i<arr.length;i++){
+       arr[i]=parseFloat(arr[i]);
+       i<3?sum1+=arr[i]:sum2+=arr[i];
+   }
+   difference_value=sum1>sum2?sum1-sum2:sum2-sum1;
+   count=Math.floor(difference_value/9);
+   difference_value%9>0?count++:'';
+   return count;
+
+}
+console.log(changeNumber('000018'));
+
+*/
+
+/*
+爱奇艺笔试第二道题：
+如
+'3 4 1'代表一共3种食物，第4天，第一个食物的含量排名是多少
+'7 4 2'代表现阶段这3种食物的含量依次是多少
+'B 1,A 2,A 2'B代表吃掉一份，A代表买进一份，B n就代表第n种食物吃掉一份，A n就代表第n种食物买进一份
+
+var data=['3 4 1','7 4 2','B 1','A 2','A 2'];
+function Food(data){
+var arr1=data[0].split(' ');
+var n=arr1[arr1.length-1]-1;
+var arr2=data[1].split(' ');
+var Foodjson={};
+var count=1;
+for(var i=2;i<data.length;i++) { var foodArr=data[i].split('
+ ');
+        Foodjson[foodArr[0]]=foodArr[1];
+    }
+    for(var key in Foodjson){
+        key==='
+ A'?arr2[Foodjson[key]]++:arr2[Foodjson[key]]--; } var m=arr2[n]; for(var j=0;j<arr2.length;j++){ arr2[j]>m?count++:'';
+	}
+	return count;
+	}
+	console.log(Food(data));
+
+*/
 </script>
 </body>
 </html>
