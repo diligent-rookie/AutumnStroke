@@ -368,6 +368,150 @@ console.log(add(4,20,20,100,60,50,30,80,55,100,60,110,88,5,3,10,6))
             console.log(reArr(arr));
             console.log(set);
         */
+        /*
+        腾讯笔试第三道题：字符串bigStr 子串smallStr在其中的最大长度的平方，是我们想求出的能量
+        如：'xyabababcba'和’ab'输出36  'aaa'和'a'输出9
+        var count = 0;
+            function Find(bigStr, smallStr) {
+                var strBoolean = true;
+                for (var j = 0; j < smallStr.length; j++) {
+                    if (smallStr[0] !== smallStr[j]) { strBoolean = false; }
+                }
+                smallStr = strBoolean ? smallStr[0] : smallStr;
+                if (bigStr.indexOf(smallStr) !== -1) {
+                    count++;
+                    bigStr = bigStr.slice(0, bigStr.indexOf(smallStr)) + bigStr.slice(bigStr.indexOf(smallStr) + smallStr.length);
+                    Find(bigStr, smallStr)
+                }
+                return Math.pow(count * smallStr.length, 2);
+            }
+            */
+        /*
+        腾讯笔试第一道题：一个数字如果各个位之和能被本身整除，我们把这个数叫做‘和谐数’，输出‘Yes’否则输出‘No’
+        如：72/9=8 输出'Yes'
+        var sum = 0;
+            function numSum(num) {
+                if (Math.floor(num / 10) < 1) {
+                    return sum += num
+                } else {
+                    sum += num % 10;
+                    numSum(Math.floor(num / 10));
+                }
+                console.log(sum);
+                return sum;
+            }
+            function harmoniousNume(num) {
+                return num % numSum(num) === 0 ? 'Yes' : 'No';
+            }
+            */
+        /* 
+        58同城第一道题：在一个数组里面形成两个数字集合，求出第k个小的差值绝对值
+        如：[1,3,1]->输出0
+        var arr = [1, 3, 1];
+                function Distance(arr, k) {
+                    var newArr = [];
+                    for (var i = 0; i < arr.length; i++) {
+                        for (var j = i + 1; j < arr.length; j++) {
+                            newArr.push(Math.abs(arr[i] - arr[j]));
+                        }
+                        return newArr.sort((a, b) => {
+                            return a - b;
+                        })[k-1];
+                    }
+                }
+                console.log(Distance(arr, k));
+        */
+        //去哪儿第一道题:螺旋矩阵
+        /*
+        var lines=read_line();
+        var line=line.split(" ");
+        var n=line[0];
+        var i=line[1];
+        var j=line[2];
+        function screw(n,i,j) {
+        let m = Math.floor(n / 2);
+        let start = 0;
+        let arr = [];
+        for (let i = 0; i < n; i++) { arr[i]=[]; for (let j=0; j < n; j++) { arr[j]=[]; } } arr[start][start]=1; while (n>=
+            start * 2) {
+            arr = ville(arr, n, start);
+            start++;
+            }
+            return arr[i-1][j-1];
+            }
+
+            function ville(arr, n, start) {
+            let endx = n - 1 - start;
+            let endy = n - 1 - start;
+
+            // 从左到右
+            var LTop = arr[start][start];
+            if (start >= 1) {
+            var LTop = arr[start][start - 1] + 1;
+            }
+            for (let i = start, num = LTop; i <= endx; i++) { arr[start][i]=num; num++; } // 从上到下 let RTop=arr[start][endy]+1;
+                if (start < endy) { for (let i=start + 1, num=RTop; i <=endy; ++i, num++) { arr[i][endy]=num; } } // 从右到左 let
+                RBottom=arr[endx][endy] + 1; if (start < endx && start < endy) { for (let i=endx - 1, num=RBottom; i>= start;
+                --i, num++) {
+                arr[endx][i] = num;
+                }
+                }
+
+                // 从下到上
+                let LBottom = arr[endx][start] + 1;
+                if (start < endx && start < endy - 1) { for (let i=endy - 1, num=LBottom; i>= start + 1; --i, num++) {
+                    arr[i][start] = num;
+                    }
+                    }
+                    return arr;
+                    }
+                    print(screw(n,i,j));
+                    */
+
+        //去哪第二道题：寻找子集
+        /*function workTime(nums){
+        var result = [[]]; // 初始为一个二维数组
+        for (var num of nums) { // 依次把每个数都加到每一个元素中，且保留之前的所有元素
+        var temp = []
+        for (var before of result) {
+        temp.push(before.concat(num))
+        }
+        result = result.concat(temp);
+        }
+        return result;
+        }
+        console.log(workTime([2,3,4]));
+        */
+        //哔哩哔哩笔试：
+        /*
+        22娘和33娘接到了小电视君的扭蛋任务：
+        一共有两台扭蛋机，编号分别为扭蛋机2号和扭蛋机3号，22娘使用扭蛋机2号，33娘使用扭蛋机3号。
+        扭蛋机都不需要投币，但有一项特殊能力：
+        扭蛋机2号：如果塞x（x范围为>=0正整数）个扭蛋进去，然后就可以扭到2x+1个
+        扭蛋机3号：如果塞x（x范围为>=0正整数）个扭蛋进去，然后就可以扭到2x+2个
+        22娘和33娘手中没有扭蛋，需要你帮她们设计一个方案，两人“轮流扭”（谁先开始不限，扭到的蛋可以交给对方使用），
+        用“最少”的次数，使她们能够最后恰好扭到N个交给小电视君。
+        */
+        /*
+        var n = readInt();
+        var arr = [];
+        while (n != 0) {
+            if (n % 2 == 0) {
+                n = (n - 2) / 2;
+                arr.push(3);
+            } else {
+                n = (n - 1) / 2;
+                arr.push(2);
+            }
+
+        }
+        arr.reverse();
+        var str = "";
+        for (var i = 0; i < arr.length; i++) {
+            str += arr[i] + "";
+        }
+        print(str)
+        */
     </script>
 </body>
 
